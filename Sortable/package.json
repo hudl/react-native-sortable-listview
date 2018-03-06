@@ -5,13 +5,14 @@
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest",
-		"refresh": "rm -rf ./node_modules/react-native-sortable-listview;cd ..;find . -name .git -prune -o -name node_modules -prune -o -name Sortable -prune -o -type d -exec mkdir -p ./Sortable/node_modules/react-native-sortable-listview/{} \\; -o -exec cp {} ./Sortable/node_modules/react-native-sortable-listview/{} \\; ;cd Sortable;node node_modules/react-native/local-cli/cli.js start"
+		"refresh": "rm -rf ./node_modules/react-native-sortable-listview;cd ..;find . -name .git -prune -o -name node_modules -prune -o -name Sortable -prune -o -type d -exec mkdir -p ./Sortable/node_modules/react-native-sortable-listview/{} \\; -o -exec cp {} ./Sortable/node_modules/react-native-sortable-listview/{} \\; ;cd Sortable;node node_modules/react-native/local-cli/cli.js start",
+		"refresh-win": "rimraf ./node_modules/react-native-sortable-listview;cd ..;find . -name .git -prune -o -name node_modules -prune -o -name Sortable -prune -o -type d -exec mkdir -p ./Sortable/node_modules/react-native-sortable-listview/{} \\; -o -exec cp {} ./Sortable/node_modules/react-native-sortable-listview/{} \\; ;cd Sortable;node node_modules/react-native/local-cli/cli.js start"
 	},
 	"dependencies": {
-		"react": "~15.4.0",
-		"react-native": "0.41.2",
+		"react": "16.0.0-alpha.12",
+		"react-native": "0.47.2",
 		"react-native-sortable-listview": "*",
-		"react-native-windows": "0.41.0"
+		"react-native-windows": "github:keatongreve/react-native-windows#4685aa52"
 	},
 	"devDependencies": {
 		"babel-jest": "19.0.0",
