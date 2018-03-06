@@ -79,20 +79,17 @@ let data = list3;
 
 let order = Object.keys(data); //Array of keys
 
-let RowComponent = React.createClass({
-  render: function() {
-    return <TouchableHighlight underlayColor={'#eee'} style={{padding: 25, backgroundColor: "#F8F8F8", borderBottomWidth:1, borderColor: '#eee'}} {...this.props.sortHandlers}>
-        <Text style={{fontSize: 20}}>{data === list3 || data === list4? this.props.data: this.props.data.text}</Text>
-      </TouchableHighlight>
-  }
-})
+const RowComponent = ({rowData, sortHandlers}) => (
+    <TouchableHighlight underlayColor={'#eee'} style={{flex:1, padding: 25, backgroundColor: "#F8F8F8", borderBottomWidth:1, borderColor: '#eee'}} {...sortHandlers}>
+      <Text style={{fontSize: 20}}>{data === list3 || data === list4? rowData: rowData.text}</Text>
+    </TouchableHighlight>
+)
 
-let MyComponent = React.createClass({
-  render: function() {
+const MyComponent = ({sortHandlers}) => {
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     return (
       <View style={styles.container}>
-         <View style={{height: 89, backgroundColor: 'lightblue'} /* fake nav bar */} >
+         <View style={{height: 72, backgroundColor: 'lightblue'} /* fake nav bar */} >
            <Text style={styles.welcome} > Sortable </Text>
          </View>
       <SortableListView
@@ -101,14 +98,13 @@ let MyComponent = React.createClass({
           order={order}
           onRowMoved={e => {
             order.splice(e.to, 0, order.splice(e.from, 1)[0]);
-            this.forceUpdate();
+            // this.forceUpdate();
           }}
-          renderRow={row => <RowComponent data={row} />}
+          renderRow={row => <RowComponent rowData={row} />}
       />
-      </View> );
-
-  }
-});
+      </View>
+    );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -117,8 +113,10 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 20,
+    flex: 1,
     textAlign: 'center',
     margin: 10,
   },
 });
-module.exports = MyComponent;
+
+export default MyComponent;
