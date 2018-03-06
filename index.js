@@ -5,6 +5,7 @@ import {
   ListView,
   Dimensions,
   PanResponder,
+  Platform,
   LayoutAnimation,
   InteractionManager,
 } from 'react-native'
@@ -188,7 +189,11 @@ class SortableListView extends React.Component {
         this.moveY = layout.pageY + layout.frameHeight / 2 + gestureState.dy
         this.direction = gestureState.dy >= this.dy ? 'down' : 'up'
         this.dy = gestureState.dy
-        onPanResponderMoveCb(e, gestureState)
+        const adjustedListHeight = HEIGHT - this.listLayout.height;
+        if (gestureState.moveY > adjustedListHeight)
+        {
+          onPanResponderMoveCb(e, gestureState)
+        }
       },
 
       onPanResponderGrant: () => {
@@ -374,7 +379,10 @@ class SortableListView extends React.Component {
     if (!isLast) i--
 
     if (String(i) !== this.state.hovering && i >= 0) {
-      LayoutAnimation.easeInEaseOut()
+      if (Platform.OS === 'ios') {
+        // TODO: Fix for Android and Windows https://github.com/facebook/react-native/issues/13207
+        // LayoutAnimation.easeInEaseOut()
+      }
       this._previouslyHovering = this.state.hovering
       this.__activeY = this.panY
       this.setState({
@@ -386,7 +394,10 @@ class SortableListView extends React.Component {
   handleRowActive = row => {
     if (this.props.disableSorting) return
     this.state.pan.setValue({ x: 0, y: 0 })
-    LayoutAnimation.easeInEaseOut()
+    if (Platform.OS === 'ios') {
+      // TODO: Fix for Android and Windows https://github.com/facebook/react-native/issues/13207
+      // LayoutAnimation.easeInEaseOut()
+    }
     this.moveY = row.layout.pageY + row.layout.frameHeight / 2
     this.setState(
       {
