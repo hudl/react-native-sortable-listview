@@ -2,13 +2,13 @@ import React from 'react'
 import {
   View,
   Animated,
-  ListView,
   Dimensions,
   PanResponder,
   Platform,
   LayoutAnimation,
   InteractionManager,
 } from 'react-native'
+import ListView from 'deprecated-react-native-listview'
 
 const HEIGHT = Dimensions.get('window').height
 
@@ -150,7 +150,7 @@ class SortableListView extends React.Component {
     const currentPanValue = { x: 0, y: 0 }
 
     this.state = {
-      ds: new ListView.DataSource({
+      ds: new (props.ListViewComponent || ListView).DataSource({
         rowHasChanged: (r1, r2) => {
           if (props.rowHasChanged) return props.rowHasChanged(r1, r2)
           return false
