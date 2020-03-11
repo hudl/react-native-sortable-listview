@@ -465,7 +465,7 @@ class SortableListView extends React.Component {
     })
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setOrder(this.props)
   }
 
@@ -475,7 +475,7 @@ class SortableListView extends React.Component {
     })
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setOrder(props)
   }
 
